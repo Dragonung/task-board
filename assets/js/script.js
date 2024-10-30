@@ -13,11 +13,6 @@ let nextId = JSON.parse(localStorage.getItem("nextId"));
 const draggables = document.querySelectorAll(".task");
 const droppables = document.querySelectorAll(".swim-lane");
 
-//method to close modal
-closeModal.addEventListener("click", function () {
-    this.style.display = 'none';
-});
-
 // Todo: create a function to generate a unique task id
 function generateTaskId() {
     //if nextId doesn't exist,
@@ -64,15 +59,19 @@ function createTaskCard(task) {
 
 // Todo: create a function to render the task list and make cards draggable
 function renderTaskList() {
-    /* make task cards draggable & droppable */
-    draggables.forEach((task) => {
-        task.addEventListener("dragstart", () => {
-            task.classList.add("is-dragging");
-        });
-        task.addEventListener("dragend", () => {
-            task.classList.remove("is-dragging");
-        });
+    $("#to-do").empty();
+    $("#in-progress").empty();
+    $("done").empty();
+
+    taskList.forEach(task => {
+        const taskCard = createTaskCard(task);
+        $(`#${task.status}--cards`).append(taskCard);
     });
+    
+    /* make task cards draggable & droppable */
+    $(".task-card").draggable({
+        cursor: "move"
+    })
 }
 
 // Todo: create a function to handle adding a new task
@@ -82,7 +81,7 @@ function handleAddTask(event) {
     const taskInput = document.querySelector('#task');
     const dateInput = document.querySelector('date');
     const descInput = document.querySelector('description');
-    const status = "todo";
+    const status = "to-do";
 
     if (taskInput && dateInput && descInput){
         const newTask = {
@@ -118,7 +117,7 @@ function handleDrop(event, ui) {
     const taskId = ui.draggable.data("id");
     const newStatus = $(this).attr("id");
 
-    const taskIndex = taskList.findIndex(task => task.id ===taskId);
+    const taskIndex = taskList.findIndex(task => task.id === taskId);
     taskList[taskIndex].status = newStatus;
    
     localStorage.setItem("tasks", JSON.stringify(taskList));
@@ -140,7 +139,7 @@ $(document).ready(function () {
 
     $(".lane").droppable({
         accept: ".task-card",
-        drop: handleDrop
+        drop: handleDrop()
     });
 
     $("deadline").datepicker({
