@@ -35,7 +35,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="ModalLabal">Add Task</h5>
-            <button type="button" class="close btn-close white" data-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="close btn-close white" data-dismiss="modal"></button>
           </div>
           <form id="addTaskForm"></form>
           <div class="modal-body">
@@ -43,13 +43,20 @@
             </div class="mb-3">
             <label for="title" class="form-label">Task Title</label>
             <input type="text" class="form-control" id="title" required>
+            <div class="modal-body">
+            </div class="mb-3">
+            <label for="deadline" class="form-label">Task Due Date</label>
+            <input type="text" class="form-control" id="datetimepicker">
+            <span class="input-group-addon">
+              <span class ="glyphicon glyphicon-calendar"></span>
+            </span>
           </div>
-          <div class="mb-">
+          <div class="mb-3">
             <label for="description" class="form-label">Task Description</label>
-            <textarea class="form-control" id="description" rows="3" required></textarea>
+            <textarea class="form-control" id="description" rows="4" required></textarea>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Add Task</button>
+            <button type="button" class="btn btn-primary" type="submit">Add Task</button>
           </div>
         </div>
       </div>
@@ -95,8 +102,12 @@
   <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
     integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
-
   <script src="./assets/js/script.js"></script>
+  <script type="text/javascript">
+    $(function(){
+      $("datetimepicker").datetimepicker()
+    });
+  </script>
 </body>
 
 </html>
